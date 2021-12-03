@@ -1,8 +1,10 @@
 package com.example.anothersocialmedia.entities;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @NoArgsConstructor @AllArgsConstructor
@@ -27,4 +29,10 @@ public class FriendshipRequest {
     @Column(name = "status", nullable = false, length = 45)
     private String status;
 
+    @Column(name = "type", nullable = false)
+    private Boolean type;
+
+    @CreationTimestamp
+    @Column(name = "time", nullable = false)
+    private Timestamp time;
 }

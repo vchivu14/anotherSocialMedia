@@ -23,5 +23,4 @@ public class Friend {
 
     @Column(name = "Users_id", nullable = false)
     private int usersId;
-
 }

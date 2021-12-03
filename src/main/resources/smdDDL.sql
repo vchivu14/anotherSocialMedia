@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS `anotherSocialMedia`.`Users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(90) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
@@ -50,8 +51,10 @@ CREATE TABLE IF NOT EXISTS `anotherSocialMedia`.`Friendship_Request` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `host` VARCHAR(45) NOT NULL,
-  `Users_id` INT NOT NULL,
   `status` VARCHAR(45) NOT NULL DEFAULT 'pending',
+  `type` TINYINT NOT NULL,
+  `time` TIMESTAMP NOT NULL,
+  `Users_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Friendship_Request_Users1_idx` (`Users_id` ASC),
   CONSTRAINT `fk_Friendship_Request_Users1`

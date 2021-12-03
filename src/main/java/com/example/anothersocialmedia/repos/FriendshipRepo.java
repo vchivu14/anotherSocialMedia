@@ -1,6 +1,8 @@
 package com.example.anothersocialmedia.repos;
 
+import com.example.anothersocialmedia.entities.FriendshipRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FriendshipRepo extends JpaRepository<FriendshipRepo, Integer> {
+public interface FriendshipRepo extends JpaRepository<FriendshipRequest, Integer> {
+    FriendshipRequest findByEmailAndHostAndUsersId(String email, String host, int userId);
 }

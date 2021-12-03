@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `anotherSocialMedia`.`Friendship_Request` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `host` VARCHAR(45) NOT NULL,
-  `status` VARCHAR(45) NOT NULL DEFAULT 'pending',
+  `status` VARCHAR(45) NOT NULL,
   `type` TINYINT NOT NULL,
   `time` TIMESTAMP NOT NULL,
   `Users_id` INT NOT NULL,

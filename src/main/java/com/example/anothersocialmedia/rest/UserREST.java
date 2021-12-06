@@ -4,11 +4,9 @@ import com.example.anothersocialmedia.dtos.UserDTO;
 import com.example.anothersocialmedia.entities.User;
 import com.example.anothersocialmedia.services.UserServiceImp;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/user")
 public class UserREST {

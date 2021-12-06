@@ -29,4 +29,8 @@ public class UserServiceImp implements UserService {
         if(!dbUser.getPassword().equals(user.getPassword())) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(dbUser,HttpStatus.OK);
     }
+
+    public ResponseEntity<User> signup(User user) {
+        return new ResponseEntity<User>(userRepo.save(user),HttpStatus.OK);
+    }
 }

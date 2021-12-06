@@ -22,4 +22,9 @@ public class UserREST {
     private ResponseEntity<User> login (@RequestBody UserDTO user){
         return userServiceImp.login(user);
     }
+
+    @PostMapping("/signup")
+    private ResponseEntity<User> signup(@RequestBody User user){
+        return userServiceImp.signup(user);
+    }
 }

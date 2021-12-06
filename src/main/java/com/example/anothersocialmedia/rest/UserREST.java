@@ -6,8 +6,9 @@ import com.example.anothersocialmedia.services.UserServiceImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/user")
 public class UserREST {
     private UserServiceImp userServiceImp;

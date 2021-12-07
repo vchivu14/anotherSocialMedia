@@ -1,5 +1,6 @@
 package com.example.anothersocialmedia.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class Friend {
     @Column(name = "host", nullable = false, length = 45)
     private String host;
 
-    @Column(name = "Users_id", nullable = false)
-    private int usersId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id",referencedColumnName = "id")
+    @JsonIgnoreProperties("friends")
+    private User user_id;
+
 }

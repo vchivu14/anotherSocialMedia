@@ -22,7 +22,6 @@ public class UserServiceImp implements UserService {
 
     public ResponseEntity<User> login(UserDTO user) {
         User dbUser = userRepo.findByEmail(user.getEmail());
-        System.out.println(dbUser);
         //we do not have user in db
         if(dbUser == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         //passwords are not mathing

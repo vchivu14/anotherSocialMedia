@@ -3,6 +3,7 @@ package com.example.anothersocialmedia.services;
 import com.example.anothersocialmedia.dtos.FriendshipProtocolRequest;
 import com.example.anothersocialmedia.dtos.FriendshipProtocolResponse;
 import com.example.anothersocialmedia.entities.FriendshipRequest;
+import com.example.anothersocialmedia.entities.User;
 import com.example.anothersocialmedia.repos.FriendRepo;
 import com.example.anothersocialmedia.repos.FriendshipRepo;
 import com.example.anothersocialmedia.repos.UserRepo;
@@ -36,33 +37,34 @@ public class FriendshipServiceImp implements FriendshipService {
     @Override
     public FriendshipProtocolResponse checkSentFriendshipStatus(FriendshipProtocolRequest friendshipProtocolRequest) {
         // user is sender in the request when sending friendship requests
-//        int userId = userRepo.findByEmail(friendshipProtocolRequest.getSender()).getId();
-//        if (friendRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getRecipient(),
-//                friendshipProtocolRequest.getRcpHost(), userId) != null) {
-//            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
-//        } else if (friendshipRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getRecipient(),
-//                friendshipProtocolRequest.getRcpHost(), userId) != null) {
-//            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
-//        } else {
-//            return new FriendshipProtocolResponse();
-//        }
-        return new FriendshipProtocolResponse(); //delete this after talking with chivu and uncomment code
+        User user = userRepo.findByEmail(friendshipProtocolRequest.getRecipient());
+        int userId = user.getId();
+        if (friendRepo.findByEmailAndHostAndUser(friendshipProtocolRequest.getRecipient(),
+                friendshipProtocolRequest.getRcpHost(), user) != null) {
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
+        } else if (friendshipRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getRecipient(),
+                friendshipProtocolRequest.getRcpHost(), userId) != null) {
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
+        } else {
+            return new FriendshipProtocolResponse();
+        }
     }
 
     @Override
     public FriendshipProtocolResponse checkReceivedFriendshipStatus(FriendshipProtocolRequest friendshipProtocolRequest) {
         // user is receiver in the request when receiving friendship requests
-//        int userId = userRepo.findByEmail(friendshipProtocolRequest.getRecipient()).getId();
-//        if (friendRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getSender(),
-//                friendshipProtocolRequest.getSrcHost(), userId) != null) {
-//            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
-//        } else if (friendshipRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getSender(),
-//                friendshipProtocolRequest.getSrcHost(), userId) != null) {
-//            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
-//        } else {
-//            return new FriendshipProtocolResponse();
-//        }
-        return new FriendshipProtocolResponse(); //delete this after talking with chivu and uncomment code
+        User user = userRepo.findByEmail(friendshipProtocolRequest.getRecipient());
+        int userId = user.getId();
+        if (friendRepo.findByEmailAndHostAndUser(friendshipProtocolRequest.getSender(),
+                friendshipProtocolRequest.getSrcHost(), user) != null) {
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
+        } else if (friendshipRepo.findByEmailAndHostAndUsersId(friendshipProtocolRequest.getSender(),
+                friendshipProtocolRequest.getSrcHost(), userId) != null) {
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
+        } else {
+            return new FriendshipProtocolResponse();
+        }
+
     }
 
     @Override

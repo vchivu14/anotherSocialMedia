@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/response")
 public class FriendshipRequesting {
-    final String SERVER_B_API = "http://localhost:9091/friendship";
+    final String SERVER_B_API = "http://localhost:8081/api/friendship";
 
     private FriendshipService friendshipService;
 
@@ -25,7 +25,7 @@ public class FriendshipRequesting {
     @PostMapping
     private ResponseEntity<FriendshipProtocolResponse> sendFriendshipRequest
             (@RequestBody FriendshipProtocolRequest request) {
-        if (friendshipService.checkSentFriendshipStatus(request).getVersion() == 1) {
+        if (friendshipService.checkSentFriendshipStatus(request).getVersion() != null) {
             return new ResponseEntity<>(friendshipService.checkSentFriendshipStatus(request),HttpStatus.OK);
         } else {
             WebClient webClient = WebClient.builder()
@@ -38,6 +38,7 @@ public class FriendshipRequesting {
                     .retrieve()
                     .bodyToMono(FriendshipProtocolResponse.class)
                     .block();
+
             if (response != null) {
                 if (response.getStatus() == 200) {
                     friendshipService.saveSuccessfulFriendshipRequestResponse(request);

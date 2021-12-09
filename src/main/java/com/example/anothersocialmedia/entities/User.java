@@ -24,7 +24,12 @@ public class User {
     @Column(name = "password", nullable = false, length = 90)
     private String password;
 
-    @OneToMany(mappedBy = "user_id")
-    @JsonIgnoreProperties("user_id")
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private List<Friend> friends = new ArrayList<>();
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -1,12 +1,8 @@
 package com.example.anothersocialmedia.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
@@ -23,10 +19,6 @@ public class User {
 
     @Column(name = "password", nullable = false, length = 90)
     private String password;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties("user")
-    private List<Friend> friends = new ArrayList<>();
 
     public User(String email, String password) {
         this.email = email;

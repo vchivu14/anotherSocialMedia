@@ -20,16 +20,21 @@ public class UserServiceImp implements UserService {
         return userRepo.findByEmail(email) != null;
     }
 
-    public ResponseEntity<User> login(UserDTO user) {
-        User dbUser = userRepo.findByEmail(user.getEmail());
-        //we do not have user in db
-        if(dbUser == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        //passwords are not mathing
-        if(!dbUser.getPassword().equals(user.getPassword())) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(dbUser,HttpStatus.OK);
+    @Override
+    public User login(UserDTO user) {
+        try {
+            User dbUser = userRepo.findByEmail(user.getEmail());
+            if (!dbUser.getPassword().equals(user.getPassword())) return null;
+            else return dbUser;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
-    public ResponseEntity<User> signup(User user) {
-        return new ResponseEntity<User>(userRepo.save(user),HttpStatus.OK);
+    @Override
+    public User signup(User user) {
+        return userRepo.save(user);
     }
+
 }

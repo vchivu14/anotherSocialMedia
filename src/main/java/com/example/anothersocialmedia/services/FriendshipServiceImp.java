@@ -10,6 +10,8 @@ import com.example.anothersocialmedia.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FriendshipServiceImp implements FriendshipService {
     private final static String methodAdd = "Add";
@@ -33,6 +35,15 @@ public class FriendshipServiceImp implements FriendshipService {
         this.userRepo = userRepo;
     }
 
+    @Override
+    public List<FriendshipRequest> getAllFriendshipRequestsReceived(int userId) {
+        return friendshipRepo.findAllByUsersIdAndType(userId,false);
+    }
+
+    @Override
+    public List<FriendshipRequest> getAllFriendshipRequestsSent(int userId) {
+        return friendshipRepo.findAllByUsersIdAndType(userId,true);
+    }
 
     // general helper method
     private String checkFriendshipProtocolMethod(String method) {

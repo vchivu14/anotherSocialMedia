@@ -10,7 +10,4 @@ public interface FriendshipService {
     FriendshipProtocolResponse receiveFriendshipRequest(FriendshipProtocolRequest friendshipProtocolRequest);
     FriendshipProtocolResponse checkSentFriendshipStatus(FriendshipProtocolRequest friendshipProtocolRequest);
     FriendshipProtocolResponse solveMethodByResponse(FriendshipProtocolRequest request);
-
-    List<FriendshipRequest> getAllFriendshipRequestsReceived(int userId);
-    List<FriendshipRequest> getAllFriendshipRequestsSent(int userId);
 }

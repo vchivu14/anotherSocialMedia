@@ -2,6 +2,7 @@ package com.example.anothersocialmedia.services;
 
 import com.example.anothersocialmedia.dtos.FriendshipProtocolRequest;
 import com.example.anothersocialmedia.dtos.FriendshipProtocolResponse;
+import com.example.anothersocialmedia.dtos.FriendshipRequestDTO;
 import com.example.anothersocialmedia.entities.Friend;
 import com.example.anothersocialmedia.entities.FriendshipRequest;
 import com.example.anothersocialmedia.repos.FriendRepo;

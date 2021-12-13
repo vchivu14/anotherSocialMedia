@@ -48,7 +48,7 @@ public class FriendshipRequestingREST {
             } else {
                 WebClient webClient = WebClient.builder()
                         .clientConnector(connector())
-                        .baseUrl(SERVER_B_API)
+                        .baseUrl(SERVER_B_API + "/api/friendship")
                         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .build();
 

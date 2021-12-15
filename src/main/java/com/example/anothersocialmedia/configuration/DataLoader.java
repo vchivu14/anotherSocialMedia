@@ -17,5 +17,7 @@ public class DataLoader {
 
     private void loadUser() {
         userRepo.save(new User("chivu", "hola"));
+        userRepo.save(new User("vlad", "hola"));
+        userRepo.save(new User("adam", "hola"));
     }
 }

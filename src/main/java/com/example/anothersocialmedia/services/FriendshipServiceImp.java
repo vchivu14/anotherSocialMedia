@@ -127,7 +127,7 @@ public class FriendshipServiceImp implements FriendshipService {
             FriendshipRequest friendshipRequest = friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendEmail,friendHost,userId,true);
             friendshipRequest.setStatus(requestDenied);
             friendshipRepo.save(friendshipRequest);
-            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 200, "You have denied the friend request!");
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 200, "Friendship was denied!");
         }
     }
 
@@ -194,7 +194,7 @@ public class FriendshipServiceImp implements FriendshipService {
     }
     private boolean sentProtocolCheckIfFriendRequestWasDenied(FriendshipProtocolRequest friendshipProtocolRequest, int userId) {
         return friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendshipProtocolRequest.getRecipient(),
-                friendshipProtocolRequest.getRcpHost(), userId, true) == null;
+                friendshipProtocolRequest.getRcpHost(), userId, true).getStatus().equals(requestDenied);
     }
 
     private FriendshipRequest getFriendshipRequestFromDTOWhenSending(FriendshipProtocolRequest friendshipProtocolRequest) {
@@ -212,6 +212,8 @@ public class FriendshipServiceImp implements FriendshipService {
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
         } else if (sentProtocolCheckIfFriendRequestExistsAlready(friendshipProtocolRequest, userId)) {
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
+        } else if (sentProtocolCheckIfFriendRequestWasDenied(friendshipProtocolRequest, userId)) {
+            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request was denied!");
         } else {
             return null;
         }

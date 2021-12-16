@@ -156,6 +156,8 @@ public class FriendshipServiceImp implements FriendshipService {
         System.out.println("Receiver: "+friendshipProtocolRequest.getRecipient());
         System.out.println("Receiver Host: "+friendshipProtocolRequest.getRcpHost());
         FriendshipProtocolResponse friendshipProtocolResponse;
+        System.out.println("this server: " + this_social_media);
+        System.out.println("other server: " + friendshipProtocolRequest.getRcpHost());
         if (friendshipProtocolRequest.getRcpHost().equals(this_social_media)) {
             // this should be an interface to decide on whatever version different answer
             if (friendshipProtocolRequest.getVersion() == 1) {

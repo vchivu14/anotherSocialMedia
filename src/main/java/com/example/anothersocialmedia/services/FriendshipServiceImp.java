@@ -105,9 +105,7 @@ public class FriendshipServiceImp implements FriendshipService {
         } else {
             int userId = userRepo.findByEmail(friendshipProtocolRequest.getRecipient()).getId();
             String friendEmail = friendshipProtocolRequest.getSender();
-            System.out.println(friendEmail);
             String friendHost = friendshipProtocolRequest.getSrcHost();
-            System.out.println(friendHost);
             FriendshipRequest friendshipRequest = friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendEmail,friendHost,userId,true);
             friendRepo.save(new Friend(friendEmail,friendHost,userId));
             friendshipRepo.deleteById(friendshipRequest.getId());
@@ -121,16 +119,10 @@ public class FriendshipServiceImp implements FriendshipService {
         } else {
             int userId = userRepo.findByEmail(friendshipProtocolRequest.getRecipient()).getId();
             String friendEmail = friendshipProtocolRequest.getSender();
-            System.out.println(friendEmail);
             String friendHost = friendshipProtocolRequest.getSrcHost();
-            System.out.println(friendHost);
             FriendshipRequest friendshipRequest = friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendEmail,friendHost,userId,true);
             friendshipRequest.setStatus(requestDenied);
             friendshipRepo.save(friendshipRequest);
-            System.out.println("status now: "+
-                    friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendshipProtocolRequest.getSender(),
-                            friendshipProtocolRequest.getSrcHost(), userId, true).getStatus()
-            );
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 200, "Friendship was denied!");
         }
     }
@@ -163,15 +155,14 @@ public class FriendshipServiceImp implements FriendshipService {
 
     @Override
     public FriendshipProtocolResponse receiveFriendshipRequest(FriendshipProtocolRequest friendshipProtocolRequest) {
-        System.out.println("Version: "+friendshipProtocolRequest.getVersion());
-        System.out.println("Method: "+friendshipProtocolRequest.getMethod());
+        System.out.println("Listen to this, I received a request!");
+        System.out.println("Protocol Version: "+friendshipProtocolRequest.getVersion());
+        System.out.println("Protocol Method: "+friendshipProtocolRequest.getMethod());
         System.out.println("Sender: "+friendshipProtocolRequest.getSender());
         System.out.println("Sender Host: "+friendshipProtocolRequest.getSrcHost());
         System.out.println("Receiver: "+friendshipProtocolRequest.getRecipient());
         System.out.println("Receiver Host: "+friendshipProtocolRequest.getRcpHost());
         FriendshipProtocolResponse friendshipProtocolResponse;
-        System.out.println("this server: " + this_social_media);
-        System.out.println("other server: " + friendshipProtocolRequest.getSrcHost());
         if (friendshipProtocolRequest.getRcpHost().equals(this_social_media)) {
             // this should be an interface to decide on whatever version different answer
             if (friendshipProtocolRequest.getVersion() == 1) {
@@ -223,10 +214,6 @@ public class FriendshipServiceImp implements FriendshipService {
 
     private FriendshipProtocolResponse saveSuccessfulFriendshipRequestResponse(FriendshipProtocolRequest friendshipProtocolRequest) {
         // user is sender in the request when sending friendship requests
-        System.out.println(friendshipProtocolRequest.getRecipient());
-        System.out.println(friendshipProtocolRequest.getRcpHost());
-        System.out.println(friendshipProtocolRequest.getSender());
-        System.out.println(friendshipProtocolRequest.getSrcHost());
         int userId = userRepo.findByEmail(friendshipProtocolRequest.getSender()).getId();
         FriendshipRequest friendshipRequest = getFriendshipRequestFromDTOWhenSending(friendshipProtocolRequest);
         // "pending", "denied"
@@ -261,6 +248,13 @@ public class FriendshipServiceImp implements FriendshipService {
     @Override
     public FriendshipProtocolResponse solveMethodByResponse(FriendshipProtocolRequest request) {
         String method = checkFriendshipProtocolMethod(request.getMethod());
+        System.out.println("Listen to this, I sent a request!");
+        System.out.println("Protocol Version: "+request.getVersion());
+        System.out.println("Protocol Method: "+request.getMethod());
+        System.out.println("Sender: "+request.getSender());
+        System.out.println("Sender Host: "+request.getSrcHost());
+        System.out.println("Receiver: "+request.getRecipient());
+        System.out.println("Receiver Host: "+request.getRcpHost());
         return switch (method) {
             case methodAdd -> saveSuccessfulFriendshipRequestResponse(request);
             case methodAccept -> saveSuccessfulFriendshipAcceptedResponse(request);

@@ -127,6 +127,10 @@ public class FriendshipServiceImp implements FriendshipService {
             FriendshipRequest friendshipRequest = friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendEmail,friendHost,userId,true);
             friendshipRequest.setStatus(requestDenied);
             friendshipRepo.save(friendshipRequest);
+            System.out.println("status now: "+
+                    friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendshipProtocolRequest.getSender(),
+                            friendshipProtocolRequest.getSrcHost(), userId, true).getStatus()
+            );
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 200, "Friendship was denied!");
         }
     }
@@ -247,9 +251,6 @@ public class FriendshipServiceImp implements FriendshipService {
 
     private FriendshipProtocolResponse saveSuccessfulFriendshipDeniedResponse(FriendshipProtocolRequest friendshipProtocolRequest) {
         int userId = userRepo.findByEmail(friendshipProtocolRequest.getSender()).getId();
-        if (sentProtocolCheckIfFriendRequestWasDenied(friendshipProtocolRequest, userId)) {
-            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request doesn't exist");
-        }
         String friendEmail = friendshipProtocolRequest.getRecipient();
         String friendHost = friendshipProtocolRequest.getRcpHost();
         FriendshipRequest friendshipRequest = friendshipRepo.findByEmailAndHostAndUsersIdAndType(friendEmail,friendHost,userId,false);

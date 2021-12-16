@@ -127,7 +127,6 @@ public class FriendshipServiceImp implements FriendshipService {
 
     private FriendshipProtocolResponse getMethodBlockResponse(FriendshipProtocolRequest friendshipProtocolRequest) {
         return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 500, "Method not yet implemented");
-
     }
 
     private FriendshipProtocolResponse getMethodResponseForReceivedProtocol(FriendshipProtocolRequest friendshipProtocolRequest) {

@@ -23,8 +23,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/response")
 public class FriendshipRequestingREST {
 
-    @Value("#{environment.TEST_SERVER}")
-    private String SERVER_B_API;
+//    @Value("#{environment.TEST_SERVER}")
+//    private String SERVER_B_API;
 
     private FriendshipService friendshipService;
 
@@ -48,7 +48,8 @@ public class FriendshipRequestingREST {
             } else {
                 WebClient webClient = WebClient.builder()
                         .clientConnector(connector())
-                        .baseUrl(SERVER_B_API + "/api/friendship")
+//                        .baseUrl(SERVER_B_API)
+                        .baseUrl(request.getRcpHost()+"/api/friendship")
                         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .build();
 

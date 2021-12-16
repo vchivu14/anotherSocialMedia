@@ -1,6 +1,5 @@
 package com.example.anothersocialmedia.services;
 
-import com.example.anothersocialmedia.dtos.UserInformationDTO;
 import com.example.anothersocialmedia.entities.Friend;
 import com.example.anothersocialmedia.repos.FriendRepo;
 import org.springframework.stereotype.Service;

@@ -212,8 +212,6 @@ public class FriendshipServiceImp implements FriendshipService {
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Already friends!");
         } else if (sentProtocolCheckIfFriendRequestExistsAlready(friendshipProtocolRequest, userId)) {
             return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request already sent!");
-        } else if (sentProtocolCheckIfFriendRequestWasDenied(friendshipProtocolRequest, userId)) {
-            return new FriendshipProtocolResponse(friendshipProtocolRequest.getVersion(), 201, "Friend Request doesn't exist!");
         } else {
             return null;
         }

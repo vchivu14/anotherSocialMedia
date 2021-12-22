@@ -1,4 +1,4 @@
 # anotherSocialMedia
 
 ## Client
-https://social-client-a.netlify.app/
+https://social-client-a.netlify.app

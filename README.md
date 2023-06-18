@@ -1,4 +1,4 @@
-# Social Media Protocol
+# Social Media Protocol Application
 ## KEA project
 
 ## Client
